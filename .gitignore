@@ -1,0 +1,33 @@
+# Arquivos de log
+*.log
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+
+# Arquivos de cache do Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Configurações do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de saída do FFmpeg
+*.mp4
+*.mp3
+
+# Arquivos gerados pelo Pillow (thumbnail)
+thumbnail_temp.jpg
+
+# Diretórios de build ou binários
+build/
+dist/
+*.exe
+
+# Configurações do VSCode
+.vscode/
