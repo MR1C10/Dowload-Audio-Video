@@ -16,7 +16,7 @@ class App:
         self.title_label = ttk.Label(root, text="YouTube Downloader", font=("Helvetica", 16))
         self.title_label.pack(pady=10)
 
-        # URL
+        # Link
         self.url_label = ttk.Label(root, text="Cole a URL do vídeo:")
         self.url_label.pack()
 
@@ -37,7 +37,6 @@ class App:
         self.video_btn = ttk.Button(self.botao_frame, text="Baixar Vídeo", command=self.baixar_video)
         self.video_btn.pack(side=tk.RIGHT, padx=20)
 
-        # Área da thumbnail
         self.thumbnail_label = ttk.Label(root)
         self.thumbnail_label.pack(pady=10)
 

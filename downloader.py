@@ -8,8 +8,8 @@ import subprocess
 
 # Configuração do logging
 logging.basicConfig(
-    filename="app.log",  # Nome do arquivo de log
-    level=logging.DEBUG,  # Nível de log
+    filename="app.log",  
+    level=logging.DEBUG, 
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
@@ -34,11 +34,10 @@ def baixar_video(url, destino):
         nome = limpar_nome(yt.title)
         logging.info(f"Iniciando download de vídeo: {nome}")
 
-        # Seleciona o vídeo e o áudio
+        
         video_stream = yt.streams.filter(adaptive=True, only_video=True, file_extension='mp4').order_by('resolution').desc().first()
         audio_stream = yt.streams.filter(adaptive=True, only_audio=True).order_by('abr').desc().first()
 
-        # Caminhos dos arquivos temporários
         video_path = os.path.normpath(os.path.join(destino, f"{nome}_video.mp4"))
         audio_path = os.path.normpath(os.path.join(destino, f"{nome}_audio.mp4"))
         output_path = os.path.normpath(os.path.join(destino, f"{nome}.mp4"))
@@ -49,7 +48,6 @@ def baixar_video(url, destino):
         logging.info(f"Baixando áudio para: {audio_path}")
         audio_stream.download(output_path=destino, filename=f"{nome}_audio.mp4")
 
-        # Verifica se os arquivos foram baixados corretamente
         if not os.path.exists(video_path):
             logging.error(f"Erro: O arquivo de vídeo {video_path} não foi encontrado.")
             raise FileNotFoundError(f"Arquivo de vídeo não encontrado: {video_path}")
@@ -57,7 +55,6 @@ def baixar_video(url, destino):
             logging.error(f"Erro: O arquivo de áudio {audio_path} não foi encontrado.")
             raise FileNotFoundError(f"Arquivo de áudio não encontrado: {audio_path}")
 
-        # Combina os arquivos com ffmpeg
         ffmpeg_path = os.path.normpath(os.path.join(os.path.dirname(__file__), "ffmpeg.exe"))
         ffmpeg_command = [
             ffmpeg_path, "-i", video_path, "-i", audio_path,
@@ -72,13 +69,11 @@ def baixar_video(url, destino):
             logging.error(f"Erro ao executar o FFmpeg: {e.stderr}")
             raise Exception("Erro ao combinar vídeo e áudio com FFmpeg.")
 
-        # Verifica se o arquivo combinado foi criado
         if os.path.exists(output_path):
             logging.info(f"Vídeo combinado criado com sucesso: {output_path}")
         else:
             logging.error("Erro: O vídeo combinado não foi criado.")
 
-        # Remove os arquivos temporários
         logging.info("Removendo arquivos temporários...")
         if os.path.exists(video_path):
             os.remove(video_path)
